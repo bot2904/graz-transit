@@ -211,6 +211,11 @@ footer p {
     color: var(--text-secondary);
 }
 
+.build-info {
+    opacity: 0.6;
+    font-size: 0.65rem;
+}
+
 .refresh-btn {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
