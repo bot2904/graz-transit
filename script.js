@@ -45,15 +45,27 @@ function renderTrips(data) {
     UI.results.innerHTML = '';
     UI.status.style.display = 'none';
 
-    data.journeys.forEach(journey => {
-        const firstLeg = journey.legs[0];
+    const transportJourneys = data.journeys.filter(journey => 
+        journey.legs && journey.legs.some(leg => !leg.walking)
+    );
+
+    if (transportJourneys.length === 0) {
+        UI.status.textContent = 'No transport connections found.';
+        return;
+    }
+
+    transportJourneys.forEach(journey => {
+        // Find the first non-walking leg to display its info
+        const firstLeg = journey.legs.find(leg => !leg.walking);
+        if (!firstLeg) return;
+        
         const lastLeg = journey.legs[journey.legs.length - 1];
         
         const depTime = new Date(firstLeg.departure);
         const plannedDep = new Date(firstLeg.plannedDeparture);
         const delay = Math.round((depTime - plannedDep) / 60000);
         
-        const lineName = firstLeg.line ? firstLeg.line.name : (firstLeg.walking ? 'Walk' : 'Trip');
+        const lineName = firstLeg.line ? firstLeg.line.name : 'Trip';
         const direction = firstLeg.direction || lastLeg.destination.name;
         
         const diffMs = depTime - new Date();
@@ -64,7 +76,6 @@ function renderTrips(data) {
         
         let typeClass = 'bus';
         if (lineName.includes('Tram') || (firstLeg.line && firstLeg.line.product === 'tram')) typeClass = 'tram';
-        if (firstLeg.walking) typeClass = 'walk';
 
         card.innerHTML = `
             <div class="time-info">
