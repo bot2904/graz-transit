@@ -96,11 +96,20 @@ h1 {
     font-weight: 700;
 }
 
-.status-message {
+.error-container {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--delay-red);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    color: var(--text-primary);
     text-align: center;
-    padding: 2rem;
+}
+
+.error-detail {
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    font-style: italic;
+    margin: 0.5rem 0;
+    font-family: monospace;
 }
 
 .results-grid {

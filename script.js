@@ -19,52 +19,21 @@ async function fetchConnections() {
 
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('API Error');
+        if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
         
         const data = await response.json();
         renderTrips(data);
     } catch (error) {
         console.error('Fetch error:', error);
-        UI.status.textContent = 'Failed to fetch live data. Using fallback.';
-        showMockData();
+        UI.status.innerHTML = `
+            <div class="error-container">
+                <p>⚠️ <b>Unable to load live data</b></p>
+                <p class="error-detail">${error.message}</p>
+                <p>Please check your connection or try again later.</p>
+            </div>
+        `;
+        UI.results.innerHTML = '';
     }
-}
-
-function showMockData() {
-    UI.status.innerHTML = '⚠️ <b>CORS Issue or API Offline:</b> Using demonstration data.';
-    UI.status.style.color = '#fbbf24';
-    
-    const now = new Date();
-    const mockData = {
-        journeys: [
-            {
-                legs: [{
-                    departure: new Date(now.getTime() + 7 * 60000).toISOString(),
-                    plannedDeparture: new Date(now.getTime() + 5 * 60000).toISOString(),
-                    line: { name: "Tram 6", product: "tram" },
-                    direction: "Smart City"
-                }]
-            },
-            {
-                legs: [{
-                    departure: new Date(now.getTime() + 15 * 60000).toISOString(),
-                    plannedDeparture: new Date(now.getTime() + 15 * 60000).toISOString(),
-                    line: { name: "Bus 64", product: "bus" },
-                    direction: "St. Leonhard"
-                }]
-            },
-            {
-                legs: [{
-                    departure: new Date(now.getTime() + 25 * 60000).toISOString(),
-                    plannedDeparture: new Date(now.getTime() + 25 * 60000).toISOString(),
-                    line: { name: "Tram 1", product: "tram" },
-                    direction: "Eggenberg"
-                }]
-            }
-        ]
-    };
-
-    renderTrips(mockData);
 }
 
 function renderTrips(data) {
