@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graz Moserhofgasse → Jakominiplatz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="oebb-dot"></span>
+                <h1>Graz Connection</h1>
+            </div>
+            <div class="route-info">
+                <div class="station from">
+                    <span class="label">From</span>
+                    <span class="name">Moserhofgasse</span>
+                </div>
+                <div class="arrow">→</div>
+                <div class="station to">
+                    <span class="label">To</span>
+                    <span class="name">Jakominiplatz</span>
+                </div>
+            </div>
+        </header>
+
+        <main id="app">
+            <div id="status" class="status-message">Loading departures...</div>
+            <div id="results" class="results-grid"></div>
+        </main>
+
+        <footer>
+            <p>Data provided by ÖBB HAFAS • <span id="last-update"></span></p>
+            <button id="refresh-btn" class="refresh-btn">Refresh</button>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
