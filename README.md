@@ -16,10 +16,10 @@ A simple, modern one-page application to check the next public transport connect
 - **ÖBB HAFAS API**: The underlying data source for Austrian public transport.
 
 ## API & CORS
-This application interacts directly with the ÖBB HAFAS endpoint (`fahrplan.oebb.at/bin/mgate.exe`). 
+This application interacts with the **ÖBB HAFAS** data via a RESTful proxy at `https://oebb.macistry.com/api`.
 
-> [!IMPORTANT]
-> Since the ÖBB API does not provide CORS headers, direct browser requests are blocked by modern browsers for security. In this demonstration, if the direct call fails, the app falls back to **mock data** to showcase the UI. In a production environment, a small backend proxy (like a Node.js server or Cloudflare Worker) would be used to bypass CORS.
+> [!NOTE]
+> Unlike the direct ÖBB endpoint, this REST proxy supports **CORS**, allowing the application to fetch live transit data directly from your browser. A mock data fallback is still included as a safety measure.
 
 ## Setup
 1. Clone the repository.
